@@ -17,11 +17,28 @@ if __name__ == "__main__":
         os.system('pause')
         exit()
 
+    file_content = file.read()
+
+    image_width = len(file_content[0 : file_content.find('\n')])
+    image_height = file_content.count('\n')
+    if (image_width > 128 or image_height > 64):
+        print()
+        print('Warning: This image has a resolution of ' + str(image_width) + '*' + str(image_height) + ', which is too large for Sticky Note. If you use the QFCTF text generated at this time, it will cause a great performance burden on your device.')
+        process_continue = input('Are you sure to continue? (Y/N): ')
+        if (process_continue != 'y' and process_continue != 'Y' and process_continue != 'n' and process_continue != 'N'):
+            process_continue = 'N'
+            print('Illegal value, corrected to "N".')
+        if (process_continue == 'n' or process_continue == 'N'):
+            print()
+            print('Operation canceled. Press any key to exit.')
+            os.system('pause')
+            exit()
+    
     print()
     print('Please specify the width of pixels:')
     print('1 - Half-width')
     print('2 - Square')
-    pixel_width = eval(input('Your choice (input the number, then press Enter): '))
+    pixel_width = eval(input('Your choice: '))
     if (pixel_width != 1 and pixel_width != 2):
         pixel_width = 1
         print('Illegal value, corrected to 1.')
@@ -35,9 +52,27 @@ if __name__ == "__main__":
         older_build = 0
         print('Illegal value, corrected to 0.')
 
+    print()
+    print('Please select a font size:')
+    print('-3 - 6pt')
+    print('-2 - 7pt')
+    print('-1 - 8pt')
+    print(' 0 - 9pt')
+    print(' 1 - 11pt')
+    print(' 2 - 13pt')
+    print(' 3 - 15pt')
+    font_size = eval(input('Your choice: '))
+    if (font_size != -3 and font_size != -2 and font_size != -1 and font_size != 0 and font_size != 1 and font_size != 2 and font_size != 3):
+        font_size = 0
+        print('Illegal value, corrected to 0.')
+
     # Generate the QFCTF text
     image_qfctf = '``'
-    for char in file.read():
+    if (font_size < 0):
+        image_qfctf += '+' + str(font_size)
+    elif (font_size > 0):
+        image_qfctf += '++' + str(font_size)
+    for char in file_content:
         if char == '\n':
             image_qfctf += '\n'
         else:
@@ -68,6 +103,10 @@ if __name__ == "__main__":
         image_qfctf = image_qfctf.replace('N', 'D')
         image_qfctf = image_qfctf.replace('O', 'E')
         image_qfctf = image_qfctf.replace('P', 'C')
+    if (font_size < 0):
+        image_qfctf += '+' + str(font_size)
+    elif (font_size > 0):
+        image_qfctf += '++' + str(font_size)
 
     print()
     try:

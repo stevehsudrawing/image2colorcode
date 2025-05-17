@@ -71,16 +71,17 @@ if __name__ == "__main__":
     print()
     print('Image resolution: '+str(image.size[0])+'*'+str(image.size[1]))
     print('Please select a resolution and pixel ratio:')
-    print('0 - 64*32, half-width pixel')
+    print('0 - 32*32, half-width pixel (actually 64*32)')
     print('1 - 32*32, square pixel')
     print('2 - 40*25, square pixel')
-    print('3 - 80*25, half-width pixel')
+    print('3 - 40*25, half-width pixel (actually 80*25)')
     print('4 - 80*43, square pixel')
     print('5 - 80*50, square pixel')
-    print('6 - Other (A resolution that\'s too large will result in abnormal displaying of this image in the command line interface or text mode!)')
+    print('6 - Original resolution, square pixel')
+    print('7 - Custom resolution')
     print('The image will be resized to the specified resolution while keeping its ratio.')
-    resolution_section = eval(input('Your choice (input the number, then press Enter): '))
-    if (resolution_section != 0 and resolution_section != 1 and resolution_section != 2 and resolution_section != 3 and resolution_section != 4 and resolution_section != 5 and resolution_section != 6):
+    resolution_section = eval(input('Your choice: '))
+    if (resolution_section != 0 and resolution_section != 1 and resolution_section != 2 and resolution_section != 3 and resolution_section != 4 and resolution_section != 5 and resolution_section != 6 and resolution_section != 7):
         resolution_section = 0
         print('Illegal value, corrected to 0.')
 
@@ -113,14 +114,25 @@ if __name__ == "__main__":
         resize_width = 80
         resize_height = 50
         pixel_width = 1
+    elif (resolution_section == 6):
+        resize_width = image.size[0]
+        resize_height = image.size[1]
+        pixel_width = 1
     else:
-        resize_width = clamp(round(eval(input('Width (16 - 256): '))), 16, 256)
-        resize_height = clamp(round(eval(input('Height (16 - 256): '))), 16, 256)
-        pixel_width = eval(input('Pixel width (0.5 or 1): '))
+        print()
+        print('Warning: A resolution that is too large will not be suitable for display in text mode or in the command line interface!')
+        resize_width = clamp(round(eval(input('Width (1 - 65535): '))), 1, 65535)
+        resize_height = clamp(round(eval(input('Height (1 - 65535): '))), 1, 65535)
+        print()
+        print('Pixel width:')
+        print('0.5 - Half-width (The actual resolution of the image will be multiplied by 2)')
+        print('1   - Square')
+        pixel_width = eval(input('Your choice: '))
         if (pixel_width != 0.5 and pixel_width != 1):
             pixel_width = 1
             print('Illegal value, corrected to 1.')
 
+    print()
     try:
         image_ratio = image.width / image.height
         image_resize_width = resize_width
@@ -133,8 +145,9 @@ if __name__ == "__main__":
         image_resize_height = int(image_resize_height)
         image = image.resize((image_resize_width, image_resize_height))
         print('Resized the image to '+str(image_resize_width)+'*'+str(image_resize_height)+'.')
+        if (image_resize_width > 128 or image_resize_height > 64):
+            print('Warning: A resolution that is too large will not be suitable for display in text mode or in the command line interface!')
     except:
-        print()
         print('Error occurred while resizing the image.')
         print('You may need to debug this script to troubleshoot.')
         print('Cannot continue. Press any key to exit.')
