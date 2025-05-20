@@ -28,6 +28,9 @@ Then, download this repository as a zip file and unzip it to a new folder.
 
 2. Run this script to show this image in your command line interface.
 
+> [!WARNING]
+> A resolution that is too large (greater than 128\*64) will *not be suitable* for display in text mode or in the command line interface!
+
 ## `ColorCode2QFCTF.py`
 
 1. Prepare `result_color_code.txt` (you should run `Image2ColorCode.py` at first).
@@ -35,6 +38,11 @@ Then, download this repository as a zip file and unzip it to a new folder.
 2. Run this script and follow the instructions to get a QFCTF text file (`result_qfctf_text.txt`).
 
 3. Paste the content of `result_qfctf_text.txt` to your Sticky Note and enjoy!
+
+> [!CAUTION]
+> If the image resolution stored in the color code file is too large (greater than 128\*64), the generated QFCTF text will be also too large to be used in Sticky Note.
+>
+> **Forcibly applying it may cause Rainmeter to crash along with Quanto Flx and *may even make it impossible to launch*!**
 
 # About Color Code
 
