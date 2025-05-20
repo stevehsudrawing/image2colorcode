@@ -80,7 +80,7 @@ if __name__ == "__main__":
     print('6 - Original resolution, square pixel')
     print('7 - Custom resolution')
     print('The image will be resized to the specified resolution while keeping its ratio.')
-    resolution_section = eval(input('Your choice: '))
+    resolution_section = eval(input('Your choice (input the number, then press Enter): '))
     if (resolution_section != 0 and resolution_section != 1 and resolution_section != 2 and resolution_section != 3 and resolution_section != 4 and resolution_section != 5 and resolution_section != 6 and resolution_section != 7):
         resolution_section = 0
         print('Illegal value, corrected to 0.')

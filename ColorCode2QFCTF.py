@@ -38,7 +38,7 @@ if __name__ == "__main__":
     print('Please specify the width of pixels:')
     print('1 - Half-width')
     print('2 - Square')
-    pixel_width = eval(input('Your choice: '))
+    pixel_width = eval(input('Your choice (input the number, then press Enter): '))
     if (pixel_width != 1 and pixel_width != 2):
         pixel_width = 1
         print('Illegal value, corrected to 1.')
@@ -73,36 +73,21 @@ if __name__ == "__main__":
     elif (font_size > 0):
         image_qfctf += '++' + str(font_size)
     for char in file_content:
-        if char == '\n':
+        if (char == '\n'):
             image_qfctf += '\n'
-        else:
+        elif (char in '0123456789ABCDEF'):
             image_qfctf += '@^' + char + '█'*pixel_width + '@^' + char
+        else:
+            image_qfctf += ' '*pixel_width
     image_qfctf += '``'
     # Simplify the QFCTF text
     for keyword in [('@^'+chr(char_index))*2 for char_index in range(48, 58)] + [('@^'+chr(char_index))*2 for char_index in range(65, 71)]:
         image_qfctf = image_qfctf.replace(keyword, '')
+
     # If using an older build of QF, replace the keywords
     if (older_build == 1):
-        image_qfctf = image_qfctf.replace('2', 'G')
-        image_qfctf = image_qfctf.replace('3', 'H')
-        image_qfctf = image_qfctf.replace('4', 'I')
-        image_qfctf = image_qfctf.replace('5', 'J')
-        image_qfctf = image_qfctf.replace('6', 'K')
-        image_qfctf = image_qfctf.replace('A', 'L')
-        image_qfctf = image_qfctf.replace('B', 'M')
-        image_qfctf = image_qfctf.replace('C', 'N')
-        image_qfctf = image_qfctf.replace('D', 'O')
-        image_qfctf = image_qfctf.replace('E', 'P')
-        image_qfctf = image_qfctf.replace('G', '3')
-        image_qfctf = image_qfctf.replace('H', '2')
-        image_qfctf = image_qfctf.replace('I', '5')
-        image_qfctf = image_qfctf.replace('J', '6')
-        image_qfctf = image_qfctf.replace('K', '4')
-        image_qfctf = image_qfctf.replace('L', 'B')
-        image_qfctf = image_qfctf.replace('M', 'A')
-        image_qfctf = image_qfctf.replace('N', 'D')
-        image_qfctf = image_qfctf.replace('O', 'E')
-        image_qfctf = image_qfctf.replace('P', 'C')
+        image_qfctf = image_qfctf.replace('2', 'G').replace('3', 'H').replace('4', 'I').replace('5', 'J').replace('6', 'K').replace('A', 'L').replace('B', 'M').replace('C', 'N').replace('D', 'O').replace('E', 'P')
+        image_qfctf = image_qfctf.replace('G', '3').replace('H', '2').replace('I', '5').replace('J', '6').replace('K', '4').replace('L', 'B').replace('M', 'A').replace('N', 'D').replace('O', 'E').replace('P', 'C')
     if (font_size < 0):
         image_qfctf += '+' + str(font_size)
     elif (font_size > 0):

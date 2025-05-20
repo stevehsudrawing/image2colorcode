@@ -55,10 +55,10 @@ if __name__ == "__main__":
 
     file_content = file.read()
 
+    print()
     image_width = len(file_content[0 : file_content.find('\n')])
     image_height = file_content.count('\n')
     if (image_width > 128 or image_height > 64):
-        print()
         print('Warning: This image has a resolution of ' + str(image_width) + '*' + str(image_height) + ', which is too large for text mode or command line interface. Continuing to try to preview may take a long time and the display effect will be degraded.')
         process_continue = input('Are you sure to continue? (Y/N): ')
         if (process_continue != 'y' and process_continue != 'Y' and process_continue != 'n' and process_continue != 'N'):
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     print('Please specify the width of pixels:')
     print('1 - Half-width')
     print('2 - Square')
-    pixel_width = eval(input('Your choice: '))
+    pixel_width = eval(input('Your choice (input the number, then press Enter): '))
     if (pixel_width != 1 and pixel_width != 2):
         pixel_width = 1
         print('Illegal value, corrected to 1.')
@@ -115,6 +115,8 @@ if __name__ == "__main__":
             print(Back.LIGHTCYAN_EX + ' ' * pixel_width, end='')
         elif (char == 'F'):
             print(Back.LIGHTWHITE_EX + ' ' * pixel_width, end='')
+        else:
+            print(Back.RESET + ' ' * pixel_width, end='')
 
     deinit()
     print()
